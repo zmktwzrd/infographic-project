@@ -21,7 +21,14 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .gips-row { cursor: pointer; transition: background-color: 0.2s ease-in-out; }
         .gips-row:hover { background-color: #e9ecef; }
-        #modalContent p { margin-bottom: 1rem; }
+        #modalContent {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+        #modalContent p { 
+            margin-bottom: 1rem; 
+        }
     </style>
 </head>
 <body class="text-[#073B4C]">
