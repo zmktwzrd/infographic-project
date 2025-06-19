@@ -21,6 +21,7 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .gips-row { cursor: pointer; transition: background-color: 0.2s ease-in-out; }
         .gips-row:hover { background-color: #e9ecef; }
+        #modalContent p { margin-bottom: 1rem; }
     </style>
 </head>
 <body class="text-[#073B4C]">
@@ -156,8 +157,30 @@
     function closeModal() { modal.classList.add('hidden'); document.body.style.overflow = 'auto'; }
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    unpackDeceptionBtn.addEventListener('click', async () => { showModal(); const prompt = `Explain the difference between Time-Weighted Return (TWR) and Money-Weighted Rate of Return (MWRR) using a simple, clear analogy for someone who is not a finance professional. Explain which one represents the manager's performance and which one represents the typical investor's experience, and why they can be so different. Format the response with an <h2> title, and paragraphs for the explanation.`; const responseText = await callGeminiAPI(prompt); modalContent.innerHTML = `<button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>${responseText}`; });
-    gipsTable.addEventListener('click', async (e) => { const row = e.target.closest('.gips-row'); if (row) { const feature = row.cells[0].textContent; const requirement = row.cells[1].textContent; showModal(); const prompt = `For the GIPS® standard feature "${feature}," explain in detail why its requirement ("${requirement}") is a critical tool for investor protection. Specifically, how does this rule help prevent the deceptions of survivorship bias and AUM-weighted returns? Provide a clear, concise explanation. Format the response with an <h2> title for the feature, and paragraphs for the explanation.`; const responseText = await callGeminiAPI(prompt); modalContent.innerHTML = `<button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>${responseText}`; } });
+    unpackDeceptionBtn.addEventListener('click', async () => { 
+        showModal();
+        const prompt = `As an expert financial analyst writing for a sophisticated audience, explain the critical difference between Time-Weighted Return (TWR) and Money-Weighted Rate of Return (MWRR).
+
+Instructions:
+1. Define each term precisely and professionally.
+2. Detail a clear scenario where a fund's TWR is positive, but its MWRR is negative, leading to investor capital destruction.
+3. Emphasize why TWR measures manager skill, while MWRR reflects the investor's actual outcome.
+4. DO NOT use any simplistic analogies (e.g., garden hoses, ice cream). The tone must be direct and professional.
+5. Format the entire response in HTML. The main title MUST be enclosed in an <h2> tag. Every subsequent paragraph MUST be enclosed in its own <p> tags for proper formatting.`;
+        const responseText = await callGeminiAPI(prompt); 
+        modalContent.innerHTML = `<button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>${responseText}`; 
+    });
+    gipsTable.addEventListener('click', async (e) => { 
+        const row = e.target.closest('.gips-row'); 
+        if (row) { 
+            const feature = row.cells[0].textContent; 
+            const requirement = row.cells[1].textContent; 
+            showModal(); 
+            const prompt = `For the GIPS® standard feature "${feature}," explain in detail why its requirement ("${requirement}") is a critical tool for investor protection. Specifically, how does this rule help prevent the deceptions of survivorship bias and AUM-weighted returns? Provide a clear, concise explanation. Format the response with an <h2> title for the feature, and paragraphs for the explanation, with each paragraph enclosed in a <p> tag.`; 
+            const responseText = await callGeminiAPI(prompt); 
+            modalContent.innerHTML = `<button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>${responseText}`; 
+        } 
+    });
 </script>
 </body>
 </html>
