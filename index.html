@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infographic: The Two-Faced Track Record</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <script src="[https://cdn.jsdelivr.net/npm/chart.js](https://cdn.jsdelivr.net/npm/chart.js)"></script>
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap)" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
         .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
@@ -174,8 +174,9 @@ Instructions:
 3. Emphasize why TWR measures manager skill, while MWRR reflects the investor's actual outcome.
 4. DO NOT use any simplistic analogies (e.g., garden hoses, ice cream). The tone must be direct and professional.
 5. Format the entire response in HTML. The main title MUST be enclosed in an <h2> tag. Every subsequent paragraph MUST be enclosed in its own <p> tags for proper formatting.`;
-        const responseText = await callGeminiAPI(prompt); 
-        modalContent.innerHTML = `<button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>${responseText}`; 
+        const responseText = await callGeminiAPI(prompt);
+        const cleanedResponse = responseText.replace(/^```html\s*/, '').replace(/```$/, '');
+        modalContent.innerHTML = `<button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>${cleanedResponse}`; 
     });
     gipsTable.addEventListener('click', async (e) => { 
         const row = e.target.closest('.gips-row'); 
@@ -185,7 +186,8 @@ Instructions:
             showModal(); 
             const prompt = `For the GIPS® standard feature "${feature}," explain in detail why its requirement ("${requirement}") is a critical tool for investor protection. Specifically, how does this rule help prevent the deceptions of survivorship bias and AUM-weighted returns? Provide a clear, concise explanation. Format the response with an <h2> title for the feature, and paragraphs for the explanation, with each paragraph enclosed in a <p> tag.`; 
             const responseText = await callGeminiAPI(prompt); 
-            modalContent.innerHTML = `<button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>${responseText}`; 
+            const cleanedResponse = responseText.replace(/^```html\s*/, '').replace(/```$/, '');
+            modalContent.innerHTML = `<button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>${cleanedResponse}`; 
         } 
     });
 </script>
